@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce | Home</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">VendriX</div>
+
+    <input type="text" placeholder="Search products..." class="search">
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#">Categories</a>
+        <a href="login.html">Login</a>
+        <a href="cart.html">Cart 🛒</a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <h1>Discover Amazing Products</h1>
+        <p>Shop smart. Shop fast. Shop better.</p>
+        <button id="shopNowBtn">Shop Now</button>
+    </section>
+
+    <section class="content">
+
+    <aside class="filters">
+        <h3>Filters</h3>
+
+        <label>Category</label>
+        <select id="categoryFilter">
+            <option value="All">All</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Fashion">Fashion</option>
+        </select>
+
+        <label>Price</label>
+        <input type="range" id="priceRange" min="0" max="100000" value="100000">
+        <p id="priceValue">Up to ₹100000</p>
+    </aside>
+
+    <section class="products-section">
+        <div class="products-grid"></div>
+    </section>
+
+</section>
+</main>
+
+<footer>
+    <p>© 2026 VendriX. All rights reserved.</p>
+</footer>
+
+<script src="js/home.js"></script>
+
+</body>
+</html>

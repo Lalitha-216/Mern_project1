@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | ShopX</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">VendriX</div>
+    <nav>
+        <a href="index.html">Home</a>
+    </nav>
+</header>
+
+<main class="cart-container">
+    <section class="cart-items">
+        <h2>Your Cart</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="cart-body">
+                <!-- Items injected via JS -->
+            </tbody>
+        </table>
+    </section>
+
+    <aside class="cart-summary">
+        <h3>Price Details</h3>
+        <p>Subtotal: ₹<span id="subtotal">0</span></p>
+        <p>Tax: ₹<span>50</span></p>
+        <h2>Total: ₹<span id="total">0</span></h2>
+        <button>Checkout</button>
+    </aside>
+</main>
+
+<script src="js/cart.js"></script>
+</body>
+</html>

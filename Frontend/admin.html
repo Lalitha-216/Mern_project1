@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | VendriX</title>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+<div class="admin-container">
+
+<div class="sidebar">
+<h2>Admin</h2>
+<ul>
+<li>Dashboard</li>
+<li>Products</li>
+<li>Orders</li>
+<li>Users</li>
+</ul>
+</div>
+
+<div class="main-content">
+
+<h1>Manage Products</h1>
+
+<div class="add-product">
+
+<h3>Add Product</h3>
+
+<form id="productForm">
+
+<input id="name" placeholder="Product Name" required>
+
+<input id="price" placeholder="Price" required>
+
+<input id="category" placeholder="Category" required>
+
+<input id="image" placeholder="Image URL" required>
+
+<textarea id="description" placeholder="Description"></textarea>
+
+<button type="submit">Add Product</button>
+
+</form>
+
+</div>
+
+
+<div class="product-list">
+
+<h3>Product List</h3>
+
+<table border="1" width="100%">
+<thead>
+<tr>
+<th>Image</th>
+<th>Name</th>
+<th>Price</th>
+<th>Category</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="productTable">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/admin.js"></script>
+
+</body>
+</html>
