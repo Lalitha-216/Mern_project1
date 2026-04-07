@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../api";
+import api, { getImageUrl } from "../api";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -47,7 +47,7 @@ const ProductDetails = () => {
   return (
     <div style={{ maxWidth: "1000px", margin: "40px auto", display: "flex", gap: "40px", flexWrap: "wrap", background: "var(--card-bg)", padding: "30px", borderRadius: "12px", border: "1px solid var(--border-color)" }}>
       <div style={{ flex: "1 1 400px" }}>
-        <img src={product.image?.startsWith('http') ? product.image : `/${product.image}`} alt={product.name} style={{ width: "100%", borderRadius: "12px", objectFit: "cover" }} />
+        <img src={getImageUrl(product.image)} alt={product.name} style={{ width: "100%", borderRadius: "12px", objectFit: "cover" }} />
       </div>
       <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <span style={{ background: "rgba(59, 130, 246, 0.2)", color: "var(--primary-hover)", padding: "4px 10px", borderRadius: "20px", display: "inline-block", width: "fit-content", fontSize: "0.8rem", marginBottom: "10px" }}>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, Package } from "lucide-react";
-import api from "../api";
+import api, { getImageUrl } from "../api";
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -11,6 +11,8 @@ const AdminDashboard = () => {
   const [formData, setFormData] = useState({
     name: "", price: "", category: "Electronics", description: "", image: ""
   });
+  const [uploadFile, setUploadFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
   
   const navigate = useNavigate();
 
@@ -51,12 +53,27 @@ const AdminDashboard = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/products/add", formData);
+      let finalImageUrl = formData.image;
+      
+      if (uploadFile) {
+        setUploading(true);
+        const md = new FormData();
+        md.append("image", uploadFile);
+        const { data: uploadPath } = await api.post("/upload", md, {
+          headers: { "Content-Type": "multipart/form-data" }
+        });
+        finalImageUrl = uploadPath;
+      }
+      
+      await api.post("/products/add", { ...formData, image: finalImageUrl });
       alert("Product added!");
       setFormData({ name: "", price: "", category: "Electronics", description: "", image: "" });
+      setUploadFile(null);
       fetchProducts();
     } catch (err) {
       alert("Error adding product");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -100,14 +117,20 @@ const AdminDashboard = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label>Image URL</label>
-                <input type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} required />
+                <label>Image Upload (Overrides URL)</label>
+                <input type="file" accept="image/*" onChange={e => setUploadFile(e.target.files[0])} />
+              </div>
+              <div className="form-group">
+                <label>Or Image URL</label>
+                <input type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} placeholder="https://..." />
               </div>
               <div className="form-group">
                 <label>Description</label>
                 <textarea rows="4" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} required></textarea>
               </div>
-              <button type="submit" className="btn" style={{ width: "100%" }}>Add Product</button>
+              <button type="submit" className="btn" style={{ width: "100%" }} disabled={uploading}>
+                {uploading ? "Uploading..." : "Add Product"}
+              </button>
             </form>
           </div>
 
@@ -127,7 +150,7 @@ const AdminDashboard = () => {
                   {products.map(p => (
                     <tr key={p._id} style={{ borderBottom: "1px solid var(--border-color)" }}>
                       <td style={{ padding: "15px", display: "flex", gap: "10px", alignItems: "center" }}>
-                        <img src={p.image?.startsWith('http') ? p.image : `/${p.image}`} alt={p.name} style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "5px" }} />
+                        <img src={getImageUrl(p.image)} alt={p.name} style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "5px" }} />
                         {p.name}
                       </td>
                       <td style={{ padding: "15px" }}>₹{p.price}</td>

@@ -21,4 +21,11 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+export const getImageUrl = (imagePath) => {
+  if (!imagePath) return "";
+  if (imagePath.startsWith("http")) return imagePath;
+  if (imagePath.startsWith("/uploads")) return `http://localhost:5000${imagePath}`;
+  return imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
+};
+
 export default api;

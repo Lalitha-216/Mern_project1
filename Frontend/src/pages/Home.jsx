@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import api from "../api";
+import api, { getImageUrl } from "../api";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -54,7 +54,7 @@ const Home = () => {
       <div className="grid">
         {products.map(p => (
           <div key={p._id} className="card">
-            <img src={p.image?.startsWith('http') ? p.image : `/${p.image}`} alt={p.name} className="card-img" />
+            <img src={getImageUrl(p.image)} alt={p.name} className="card-img" />
             <div className="card-body">
               <h3 style={{ marginBottom: "10px" }}>{p.name}</h3>
               <p style={{ color: "var(--text-light)", fontSize: "0.9rem", marginBottom: "15px", minHeight: "40px" }}>
