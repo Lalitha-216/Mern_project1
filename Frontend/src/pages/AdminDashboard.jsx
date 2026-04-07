@@ -127,7 +127,7 @@ const AdminDashboard = () => {
                   {products.map(p => (
                     <tr key={p._id} style={{ borderBottom: "1px solid var(--border-color)" }}>
                       <td style={{ padding: "15px", display: "flex", gap: "10px", alignItems: "center" }}>
-                        <img src={p.image} alt={p.name} style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "5px" }} />
+                        <img src={p.image?.startsWith('http') ? p.image : `/${p.image}`} alt={p.name} style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "5px" }} />
                         {p.name}
                       </td>
                       <td style={{ padding: "15px" }}>₹{p.price}</td>

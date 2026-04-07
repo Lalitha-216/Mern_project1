@@ -63,7 +63,7 @@ const Cart = () => {
         {cartItems.map((item) => (
           <div key={item.productId} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "var(--card-bg)", padding: "20px", borderRadius: "12px", border: "1px solid var(--border-color)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-              <img src={item.image} alt={item.name} style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "8px" }} />
+              <img src={item.image?.startsWith('http') ? item.image : `/${item.image}`} alt={item.name} style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "8px" }} />
               <div>
                 <h4 style={{ fontSize: "1.2rem", marginBottom: "5px" }}>{item.name}</h4>
                 <p style={{ color: "var(--text-light)" }}>Qty: {item.qty} × ₹{item.price}</p>

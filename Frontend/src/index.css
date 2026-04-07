@@ -1,26 +1,47 @@
 :root {
-  --primary-color: #3b82f6; /* Blue 500 */
+  /* Light theme (default) */
+  --primary-color: #3b82f6; 
   --primary-hover: #2563eb;
-  --bg-color: #0f172a; /* Slate 900 */
-  --card-bg: #1e293b; /* Slate 800 */
+  --bg-color: #f8fafc; 
+  --card-bg: #ffffff; 
+  --text-dark: #0f172a;
+  --text-light: #64748b;
+  --border-color: #e2e8f0;
+  --accent-color: #0284c7;
+  --danger-color: #ef4444;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+}
+
+body.dark {
+  /* Dark theme */
+  --primary-color: #3b82f6; 
+  --primary-hover: #60a5fa;
+  --bg-color: #0f172a; 
+  --card-bg: #1e293b; 
   --text-dark: #f8fafc;
   --text-light: #94a3b8;
   --border-color: #334155;
-  --accent-color: #0ea5e9;
+  --accent-color: #38bdf8;
   --danger-color: #ef4444;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.5);
+  --nav-bg: rgba(30, 41, 59, 0.85);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-dark);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -45,20 +66,23 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background-color: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(10px);
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
   border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease;
 }
 
 .logo {
   font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, #3b82f6, #0ea5e9);
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
 
 .nav-links {
@@ -73,9 +97,10 @@ a:hover {
   margin: 50px auto;
   padding: 40px;
   background-color: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .form-group {
@@ -83,22 +108,24 @@ a:hover {
 }
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: var(--text-light);
   font-size: 0.9rem;
+  font-weight: 500;
 }
 .form-group input, .form-group select, .form-group textarea {
   width: 100%;
-  padding: 12px;
+  padding: 12px 14px;
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);
   color: var(--text-dark);
-  border-radius: 8px;
+  border-radius: 10px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
 }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
   border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 /* Button */
@@ -106,34 +133,41 @@ a:hover {
   display: inline-block;
   padding: 12px 24px;
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s, transform 0.1s;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 .btn:hover {
   background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 .btn:active {
-  transform: scale(0.98);
+  transform: translateY(0);
 }
 .btn.danger {
   background-color: var(--danger-color);
+}
+.btn.danger:hover {
+  background-color: #dc2626;
 }
 
 /* Card */
 .card {
   background-color: var(--card-bg);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border-color);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 .card-img {
   width: 100%;
