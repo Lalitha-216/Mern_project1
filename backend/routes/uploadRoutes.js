@@ -2,11 +2,16 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const { verifyToken, isAdmin } = require("../middleware/authMiddleware");
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
-        cb(null, "uploads/");
+        const uploadPath = path.join(__dirname, "../uploads");
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        }
+        cb(null, uploadPath);
     },
     filename(req, file, cb) {
         cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
@@ -21,7 +26,7 @@ function checkFileType(file, cb) {
     if (extname && mimetype) {
         return cb(null, true);
     } else {
-        cb("Images only!");
+        cb(new Error("Images only!"));
     }
 }
 
@@ -36,8 +41,7 @@ router.post("/", verifyToken, isAdmin, upload.single("image"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "No image provided" });
     }
-    const fixedPath = req.file.path.replace(/\\/g, "/"); // Convert backslashes for Windows
-    res.json(`/${fixedPath}`);
+    res.json(`/uploads/${req.file.filename}`);
 });
 
 module.exports = router;
